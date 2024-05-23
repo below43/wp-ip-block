@@ -47,16 +47,17 @@ function wp_ip_block_options() {
     echo '</form>';
     echo '</div>';
 
-
     // Instructions for .htaccess IP block
     echo '<h3>.htaccess IP Block Instructions</h3>';
-    echo '<p>For extra security, to block all IP addresses except those listed above from accessing the wp-admin directory, add the following to your .htaccess file in wp-admin directory:</p>';
+    echo '<p>For extra security, to block all IP addresses except those listed above from accessing the wp-admin directory, add the following to your .htaccess file in the main directory:</p>';
     echo '<pre>';
-    echo "order deny,allow\n";
+    echo htmlentities('<Files wp-login.php>');
+    echo "\norder deny,allow\n";
     echo "deny from all\n";
     foreach (explode("\n", $ip_addresses) as $ip) {
         echo "allow from " . trim($ip) . "\n";
     }
+    echo htmlentities('</Files>');
     echo '</pre>';
     echo '</div>';
 }
